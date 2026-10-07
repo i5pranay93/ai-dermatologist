@@ -12,6 +12,19 @@ The current app uses:
 
 Important: this project provides general informational guidance only. It is not a medical diagnosis and should not replace care from a licensed dermatologist or clinician.
 
+## Meet Your AI Dermatologist
+
+> Hello! I am your AI dermatologist. You can use me whenever you want — no waiting room, no magazines nobody reads, no uncomfortable small talk. Tell me what bothers you, upload a photo, and I will take a look with infinite patience and zero judgment. Fair warning: I work fast, I speak human, and I might crack a joke — your skin is probably fine, but let's check anyway.
+
+How I work:
+
+1. Record or upload your voice description of the concern.
+2. Drop a clear skin image.
+3. Hit **Analyze Concern**.
+4. Get plain-English guidance in seconds — written and spoken, because reading is optional.
+
+![AI Dermatologist app UI](sample-working-app-ui.png)
+
 ## Project Structure
 
 ```text
