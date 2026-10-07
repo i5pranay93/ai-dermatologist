@@ -452,18 +452,17 @@ CSS = """
 """
 
 
-def process_inputs(audio_filepath, image_filepath, video_filepath):
+def process_inputs(audio_filepath, image_filepath):
     if not audio_filepath:
         raise gr.Error("Please record or upload your voice description first.")
 
-    if not image_filepath and not video_filepath:
-        raise gr.Error("Please upload a skin image or video before analysis.")
+    if not image_filepath:
+        raise gr.Error("Please upload a skin image before analysis.")
 
     patient_text = transcribe_patient_voice(audio_filepath)
     doctor_text = brain_of_the_doctor(
         patient_text=patient_text,
         image_filepath=image_filepath,
-        video_filepath=video_filepath,
     )
     doctor_audio = convert_text_to_doctor_audio(doctor_text)
 
@@ -477,7 +476,7 @@ with gr.Blocks(title=APP_TITLE) as iface:
             <header class="ais-topbar">
                 <div class="ais-brand">
                     <h1>AI Skin Specialist</h1>
-                    <p>VOICE, IMAGE, AND VIDEO BASED SKIN CONSULTATION ASSISTANT</p>
+                    <p>VOICE AND IMAGE BASED SKIN CONSULTATION ASSISTANT</p>
                 </div>
                 <div class="ais-security">
                     <span class="ais-icon">security</span>
@@ -512,7 +511,6 @@ with gr.Blocks(title=APP_TITLE) as iface:
                             label="Skin Image",
                             height=280,
                         )
-                        video_input = gr.Video(label="Skin Video", height=280)
 
                     with gr.Column(elem_classes="ais-submit-wrap"):
                         analyze_button = gr.Button(
@@ -525,7 +523,7 @@ with gr.Blocks(title=APP_TITLE) as iface:
                         """
                         <div class="ais-note">
                             <span class="ais-icon">info</span>
-                            <span>For better assessment, include a short video showing the affected area from multiple angles and under good lighting.</span>
+                            <span>For better assessment, upload a clear, well-lit image of the affected area.</span>
                         </div>
                         """
                     )
@@ -592,7 +590,7 @@ with gr.Blocks(title=APP_TITLE) as iface:
 
     analyze_button.click(
         fn=process_inputs,
-        inputs=[audio_input, image_input, video_input],
+        inputs=[audio_input, image_input],
         outputs=[transcript_output, response_output, audio_output],
     )
 

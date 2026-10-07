@@ -1,6 +1,6 @@
 # AI Skin Specialist
 
-AI Skin Specialist is a Gradio-based consultation assistant that accepts a patient voice description plus a skin image or video, transcribes the patient audio, sends the visual/text context to an AI model, and returns both a written and spoken doctor-style response.
+AI Skin Specialist is a Gradio-based consultation assistant that accepts a patient voice description plus a skin image, transcribes the patient audio, sends the visual/text context to an AI model, and returns both a written and spoken doctor-style response.
 
 The current app uses:
 
@@ -225,10 +225,9 @@ Open that URL in your browser.
 ## How to Use
 
 1. Record or upload a patient voice description.
-2. Upload a skin image. The current Groq implementation requires an image.
-3. Optionally upload a skin video. The current Groq implementation does not process video directly and uses the image as the visual reference.
-4. Click `Analyze Concern`.
-5. Review the transcript, doctor guidance, and generated audio response.
+2. Upload a skin image. The free Groq path is image-only; video input is removed from the UI.
+3. Click `Analyze Concern`.
+4. Review the transcript, doctor guidance, and generated audio response.
 
 ## uv Commands
 
@@ -309,7 +308,7 @@ Because this project includes `uv.lock`, prefer `uv sync` over `pip install -r r
 ## Development Notes
 
 - `main.py` currently imports `brain_of_the_doctor` from `brain_of_the_doctor_groq.py`.
-- `brain_of_the_doctor_groq.py` requires an image input. If only a video is uploaded, the app validation passes, but Groq vision will raise an error because no image was provided.
+- `brain_of_the_doctor_groq.py` is image-only: Groq free vision accepts up to 3 images per request, never video. A commented-out video snippet sits in that file for forkers. Real video needs a model with native video input such as MiniMax; the commented free stopgap samples video to 3 frames with `ffmpeg` and sends them as images (tested working).
 - Generated audio is written to `doctor_response.mp3` by default.
 - Gradio launches with `debug=True` in `main.py`.
 
